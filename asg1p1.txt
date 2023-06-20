@@ -1,0 +1,93 @@
+//Sophia Norris
+//Computer Science 2
+//Assignment
+//Problem 1
+
+//This program prompts the user to enter a number of test scores, 
+//and then reads each of the test scores into a  vector.
+//Print the average test score and then the individual scores in  reverse order
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+int main() 
+{
+    //Variables
+    int numTests;
+    vector<double> testScores;
+    double score;
+    int i = 0;
+
+    //Asks the user for number of test scores
+    do 
+    {
+        cout << "Enter the number of test scores: ";
+        cin >> numTests;
+
+        if (numTests <= 0) 
+        {
+            cout << "Invalid number of tests! Please enter a positive number." << endl;
+        }
+    } while (numTests <= 0);
+
+
+    //Asks User for the scores
+    while (i < numTests) 
+    {
+        cout << "Enter test score " << i + 1 << ": ";
+        cin >> score;
+
+        // Input validation
+        if (score < 0 || score > 100) 
+        {
+            cout << "Invalid test score! Test Scores must be between 0 and 100." << endl;
+        }
+        else //Valid score is entered
+        {
+            testScores.push_back(score);   //Adds score to test vector
+            ++i;                           //
+        }
+    }
+
+    // Calculates the average
+    double sum = 0.0;
+    for (const double& testScore : testScores) 
+    {
+        sum += testScore;
+    }
+    double average = sum / numTests;
+
+
+    //Bubble sorting 
+    for (int i = 0; i < numTests - 1; ++i) {
+        for (int j = 0; j < numTests - i - 1; ++j) 
+        {
+            if (testScores[j] > testScores[j + 1]) 
+            {
+                // Swap elements
+                double temp = testScores[j];
+                testScores[j] = testScores[j + 1];
+                testScores[j + 1] = temp;
+            }
+        }
+    }
+
+    //Shows the scores in reverse order
+    cout << "Scores in order (lowest to highest):" << endl;
+    for (const double& testScore : testScores) 
+    {
+        cout << testScore << " ";
+    }
+    cout << std::endl;
+
+    //Shows the average
+    cout << "Average score: " << average << endl;
+
+    return 0;
+}
