@@ -1,7 +1,6 @@
-// Sophia Norris
-// Comp Sci II
-// Mod 4 Lab 12
-
+// This C++ program is a word frequency counter that reads text from the user through standard input and creates a frequency table of word occurrences.
+// Uses the C++ Standard Template Library (STL) map data structure to track word count.
+// After the user input is entered, the program processes the words, increments the counts in the frequency table, and displays each word with it's frequency 
 
 #include <string>
 #include <map>
@@ -9,7 +8,9 @@
 
 using namespace std;
 
+// Type alias for the frequency table with FreqTable as datatype
 using FreqTable = map<string, int>;
+
 
 // Function Prototypes
 void buildFreqTable(FreqTable&);
