@@ -1,0 +1,109 @@
+// This program is a payroll system that stores information about an employee in a data record
+
+#include <iostream>
+#include <fstream>
+#include <list>
+#include <stack>
+#include <queue>
+using namespace std;
+
+
+
+struct Employee
+{
+    int empId;                  //**NOTE** how we use a pointer here rather than
+    int hours;                  //objects. This will allow us to use heapallocated
+    int rate;				    //records and avoid some problems regarding data
+    int pay;                    //in helper functions going out of scope.
+};
+
+
+queue<Employee *> employeeQueue;
+
+
+//Function declarations
+void getEmployee(Employee* emp);
+void displayAndDump();
+
+
+//In the main() function, we are asking the user how 
+//many records they would like to enter, then getting
+//the employee data for each one of the records
+//as we go. Then dumping the data into both 
+//a CSV text file and to the console.
+
+
+
+int main()
+{
+    int numEmps = 0;
+    Employee* empPtr = nullptr;
+    cout << "How many employees? ";
+    cin >> numEmps;
+
+    for (int count = 0; count < numEmps; ++count)
+    {
+        empPtr = new Employee();
+        getEmployee(empPtr);
+        employeeQueue.push(empPtr);
+    }
+    displayAndDump();
+    return 0;
+}
+
+
+// Function: getEmployee
+// Purpose: Get employee data from the user
+// Parameters:
+//   - emp: Pointer to the Employee object
+void getEmployee(Employee* emp)
+{
+    cout << "Enter employee number: ";
+    cin >> emp->empId;
+    cout << "How many hours did they work? ";
+    cin >> emp->hours;
+    cout << "What is their hourly rate? ";
+    cin >> emp->rate;
+    emp->pay = emp->hours * emp->rate;
+}
+
+
+// Function: displayAndDump
+// Purpose: Display employee data and dump it into a CSV file
+void displayAndDump()
+{
+    fstream dStream("empdata.csv", ios::out);
+    if (dStream.is_open())
+    {
+        queue<Employee*> tempQueue = employeeQueue; //copy of stack
+        while (!tempQueue.empty())
+        {        			               
+            Employee* empPtr = tempQueue.front();
+            tempQueue.pop();
+                                                // This function is using an iterator to traverse the list
+            dStream << empPtr->empId << ",";    // NOTE: how the loop control variable is defined, as having
+            dStream << empPtr->hours << ",";    // a type of ~auto~. This tells C++ to figure out the type of 
+            dStream << empPtr->rate << ",";     // the control variable in the range-based for loop by checking
+            dStream << empPtr->pay << endl;	    // the type of the initializer
+            cout << empPtr->empId << ",";       // 
+            cout << empPtr->hours << ",";       // 
+            cout << empPtr->rate << ",";        // 
+            cout << empPtr->pay << endl;		// 
+        }
+        dStream.close();
+    }
+}
+
+//********** DIFFERENCES BETWEEN DATA STRUCTURES: LIST, STACK AND QUEUE **************
+// 
+//Queues Follow FIFO order, where the element that has been in the queue the longest 
+//is the first to be accessed/removed. Use front() to access the front(first) element 
+//to comply with FIFO rule. Pop() can still be used to remove the elements so the 
+//while loop is still in use
+
+
+//stacks follow LIFO, they don't have direct access to their elements for iteration like lists so you cannot use range based for loops. 
+create a copy of the stack into a new stack object (tempstack), and use the top function to follow stack's LIFO rule, and pop() remove the
+element so that the next element can be accessed. A while loop will be required so that the pop function can execute until the stack is empty 
+and all elements have been accesssed.
+
