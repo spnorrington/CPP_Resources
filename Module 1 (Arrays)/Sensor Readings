@@ -1,0 +1,111 @@
+// Sensor readings from a sensor network are collected into a text file with the
+// reading from one sensor per line where each line contains a sensor number, 
+// a timestamp in the form of “hh : mm”, and a temperature.The sensor number and 
+// temperature reading are both integers.
+// You need to write a program that reads the data from the text file,
+// stores the data in a set of “parallel arrays”, and reports the overall average 
+// temperature and then allows the user to display the temperature reading of 
+// a specific sensor.
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+
+using namespace std;
+
+const int MAXSAMPLES = 1000; //Constant to define size of arrays
+                             //Always good form to do this; only have to change
+                             //one place to adjust the size of all arrays sized by constant
+
+const string DATAFILE = "datafile.txt";
+
+//The following define the columns in our data file
+int sensorNumber[MAXSAMPLES];
+string timestamp[MAXSAMPLES];
+int sensorReading[MAXSAMPLES];
+
+int numberOfReadings = 0;
+int averageTemperature = 0;
+
+// Function prototypes
+void readDataFromFile();
+void displayTotals();
+int displayMenu();
+void displayDataForSensor(unsigned int);
+
+// And for the good stuff;
+int main()
+{
+    bool keepGoing = true;
+    unsigned int choice = 0;
+    readDataFromFile();
+    displayTotals();
+    do
+    {
+        choice = displayMenu();
+        if (choice == 0)
+        {
+            keepGoing = false;
+        }
+        else
+        {
+            displayDataForSensor(choice);
+        }
+    } while (keepGoing);
+    return 0;
+}
+
+void readDataFromFile()
+{
+    ifstream dfile;
+    int sNumber = 0;
+    string currentTS = "";
+    int sReading = 0;
+    int readingCount = 0;
+    int sumOfTemps = 0;
+    dfile.open(DATAFILE);
+    if (dfile.is_open())
+    {
+        dfile >> sNumber >> currentTS >> sReading;
+        while (!dfile.eof())
+        {
+            sensorNumber[readingCount] = sNumber;
+            timestamp[readingCount] = currentTS;
+            sensorReading[readingCount] = sReading;
+            readingCount++;
+            sumOfTemps += sReading;
+            dfile >> sNumber >> currentTS >> sReading;
+
+        }
+        numberOfReadings = readingCount;
+        averageTemperature = sumOfTemps / numberOfReadings;
+        dfile.close();
+    }
+    else
+    {
+        cerr << "Error: Unable to open data file" << endl;
+        exit(1);
+    }
+
+}
+
+void displayTotals() {
+    cout << "The average temperature was: " << setw(4) << averageTemperature << endl;
+
+}
+
+int displayMenu()
+{
+    int choice;
+    cout << "Enter a sensor number or 0 to exit program: ";
+    cin >> choice;
+    return choice;
+}
+
+void displayDataForSensor(unsigned int sensorID)
+{
+    cout << "Sensor number: " << sensorNumber[sensorID] << endl;
+    cout << "Timestamp    : " << timestamp[sensorID] << endl;
+    cout << "Temperature  : " << sensorReading[sensorID] << endl;
+}
