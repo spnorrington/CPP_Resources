@@ -1,0 +1,112 @@
+// This code reads data from a text file and stores the data in an array structures
+// Processing in a “row-column” structure with formatted data by row.
+
+
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+
+using namespace std;
+
+const int MAXSAMPLES = 1000; //Constant to define size of arrays
+//Always good form to do this; only have to change
+//one place to adjust the size of all arrays sized by constant
+
+const string DATAFILE = "datafile.txt";
+
+//The following defines the rows in our data file
+struct ReadingRow
+{
+    int sensorNumber;
+    string timestamp;
+    int sensorReading;
+};
+
+ReadingRow sensorReadings[MAXSAMPLES];
+
+int numberOfReadings = 0;
+int averageTemperature = 0;
+
+// Function prototypes
+void readDataFromFile();
+void displayTotals();
+int displayMenu();
+void displayDataForSensor(unsigned int);
+
+// And for the good stuff;
+int main()
+{
+    bool keepGoing = true;
+    unsigned int choice = 0;
+    readDataFromFile();
+    displayTotals();
+    do
+    {
+        choice = displayMenu();
+        if (choice == 0)
+        {
+            keepGoing = false;
+        }
+        else
+        {
+            displayDataForSensor(choice);
+        }
+    } while (keepGoing);
+    return 0;
+}
+
+void readDataFromFile()
+{
+    ifstream dfile;
+    int sNumber = 0;
+    string currentTS = "";
+    int sReading = 0;
+    int readingCount = 0;
+    int sumOfTemps = 0;
+    dfile.open(DATAFILE);
+    if (dfile.is_open())
+    {
+        dfile >> sNumber >> currentTS >> sReading;
+        while (!dfile.eof())
+        {
+            sensorReadings[readingCount].sensorNumber = sNumber;
+            sensorReadings[readingCount].timestamp = currentTS;
+            sensorReadings[readingCount].sensorReading = sReading;
+            readingCount++;
+            sumOfTemps += sReading;
+            dfile >> sNumber >> currentTS >> sReading;
+
+        }
+        numberOfReadings = readingCount;
+        averageTemperature = sumOfTemps / numberOfReadings;
+        dfile.close();
+    }
+    else
+    {
+        cerr << "Error: Unable to open data file" << endl;
+        exit(1);
+    }
+
+}
+
+void displayTotals() {
+    cout << "The average temperature was: " << setw(4) << averageTemperature << endl;
+
+}
+
+int displayMenu()
+{
+    int choice;
+    cout << "Enter a sensor number or 0 to exit program: ";
+    cin >> choice;
+    return choice;
+}
+
+void displayDataForSensor(unsigned int sensorID)
+{
+    cout << "Sensor number: " << sensorReadings[sensorID].sensorNumber << endl;
+    cout << "Timestamp    : " << sensorReadings[sensorID].timestamp << endl;
+    cout << "Temperature  : " << sensorReadings[sensorID].sensorReading << endl;
+}
