@@ -1,6 +1,4 @@
-//This code is apart of the Assignment 3: Problem 1 Project
-//Please see assignment3.cpp in this folder for additional information.
-//
+
 //-------------Implementation File-----------------//
 
 
