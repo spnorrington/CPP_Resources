@@ -1,0 +1,37 @@
+// The code formats currency values by inserting commas and a dollar sign at the appropriate places in a string containing an un-formatted dollar amount
+
+
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <iomanip>
+using namespace std;
+
+// Function Prototype
+void dollarFormat(string&);
+
+int main()
+{
+    string input;
+    cout << "Enter dollar amount in form dddddd.cc : ";
+    cin >> input; // Read the input dollar amount from the user
+    dollarFormat(input); // Call the function to format the dollar amount
+    cout << "Here's the formatted amount: ";
+    cout << input << endl; // Output the formatted dollar amount
+    return 0;
+}
+
+void dollarFormat(string& currency)
+{
+    stringstream currencyStream; // Create a stringstream to store formatted currency
+
+    currencyStream.imbue(std::locale("en_US.UTF-8")); // Set the stream's locale to US English
+
+    currencyStream << showbase << put_money(currency, true);
+    // Format the currency using put_money(), true sets use_grouping to add commas
+    // showbase sets the basefield flag of the stream to indicate a monetary format
+
+    string formattedStr = currencyStream.str(); // Get the formatted currency string
+    currency = formattedStr; // Update the original currency with the formatted one
+}
