@@ -1,0 +1,77 @@
+// This code dynamically allocates an array of integers.
+
+
+#include <iostream>
+#include <iomanip>
+#include <cstdlib>		//For rand and srand
+#include <ctime>
+using namespace std;
+
+//Function Prototype
+int *getRandomNumbers(int);
+
+int main()
+{
+	int *numbers = nullptr;	   //To dynamically allocate an array
+
+	int amount;			       //To hold number of ints
+	int count;					//Counter Variable
+
+	//Get the amount of elements in the array
+
+	cout << "Please enter the number of elements in the array ";
+	cin >> amount;
+
+
+	//Dynamically allocate an array large enough to hold that many elements
+	numbers = getRandomNumbers(amount);
+
+	//display the numbers
+	for (int count = 0; count < amount; count++)
+		cout << numbers[count] << endl;
+
+
+
+
+	// Free dynamically allocated memory
+	delete[] numbers;
+	numbers = nullptr;					//make numbers a null pointer
+
+	return 0;
+
+
+
+}
+
+
+//*************************************************
+// Function Name: getRandomNumbers
+// Purpose: Accepts an integer that indicates the number of elements in the array
+// as an argument, and returns a pointer 
+// to an array of random integers. The parameter 
+// indicates the number of numbers requested.
+//*************************************************
+
+int* getRandomNumbers(int num)
+{
+	int* arr = nullptr;			//array to hold the numbers
+
+	//return a null pointer if num is zero or negative
+	if (num <= 0)
+		return nullptr;
+
+	//dynammically allocate the array
+	arr = new int[num];
+
+	//seed the random number generator by passing the return value
+	//the return value of time(o) to srand
+	srand(time(0));
+
+	//populate the array with random numbers
+	for (int count = 0; count < num; count++)
+		arr[count] = rand();
+
+	//return the pointer to the array
+
+	return arr;
+}
