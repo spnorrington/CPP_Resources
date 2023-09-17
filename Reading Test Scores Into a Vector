@@ -1,9 +1,3 @@
-//This program prompts the user to enter a number of test scores, 
-//and then reads each of the test scores into a  vector.
-//Print the average test score and then the individual scores in  reverse order
-
-
-
 
 #include <iostream>
 #include <vector>
