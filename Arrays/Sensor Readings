@@ -1,11 +1,4 @@
-// Sensor readings from a sensor network are collected into a text file with the
-// reading from one sensor per line where each line contains a sensor number, 
-// a timestamp in the form of “hh : mm”, and a temperature.The sensor number and 
-// temperature reading are both integers.
-// You need to write a program that reads the data from the text file,
-// stores the data in a set of “parallel arrays”, and reports the overall average 
-// temperature and then allows the user to display the temperature reading of 
-// a specific sensor.
+// Purpose of this program is to read data from a text file by row
 
 #include <iostream>
 #include <string>
