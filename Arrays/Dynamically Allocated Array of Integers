@@ -44,14 +44,6 @@ int main()
 }
 
 
-//*************************************************
-// Function Name: getRandomNumbers
-// Purpose: Accepts an integer that indicates the number of elements in the array
-// as an argument, and returns a pointer 
-// to an array of random integers. The parameter 
-// indicates the number of numbers requested.
-//*************************************************
-
 int* getRandomNumbers(int num)
 {
 	int* arr = nullptr;			//array to hold the numbers
