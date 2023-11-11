@@ -8,8 +8,7 @@ This collection was developed using insights and knowledge gained from course wo
 This collections is for demonstration and educational purposes only.
 ------------------
 
-This is a repository for demonstrating my knowledge of C++. I have tailored the code to asisst anyone in their journey of learning C++ by including detailed notes and explanations. I have developed a strong foundation in programming and use this cllection to reflect. I am currently working on showcasing my skills through projects that require implementing advanced topics and concepts.
-
+This is a repository for demonstrating my knowledge of C++. I have tailored the code to asisst anyone in their journey of learning C++ by including detailed notes and explanations. 
 
 
 
