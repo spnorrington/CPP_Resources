@@ -1,18 +1,2 @@
 # CPP_Resources
-
-
-
--------NOTE ------
-This collection was developed using insights and knowledge gained from course work. This repository references material and information from "Starting out with C++: From Control Structures through objects, 8th edition" by Tony Gaddis. Many student resources are available from the publisher including source codes, case studies, and video notes online at: https://www.pearson.com/higher-education.html
-----Disclaimer----
-This collections is for demonstration and educational purposes only.
-------------------
-
-This is a repository for demonstrating my knowledge of C++. I have tailored the code to asisst anyone in their journey of learning C++ by including detailed notes and explanations. 
-
-
-
-Feel free to explore or reach out to me. Your feedback and suggestions are always welcome!
-
-
-
+Welcome to CPP_Resources, a repository dedicated to showcasing my knowledge in C++ fundamentals using object-oriented programming (OOP). This collection of code is carefully crafted to serve as a valuable resource for anyone embarking on their journey to master C++. Each section is accompanied by detailed notes and explanations to facilitate a comprehensive understanding of the concepts.
